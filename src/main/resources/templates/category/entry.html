@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリー管理</title>
+</head>
+<body>
+	<th:block th:replace="parts/header"></th:block>
+	<main>
+		<article>
+			<h2>カテゴリー登録</h2>
+			<th:block th:if="${mode eq 'add'}">
+				<form action="/categories/confirm" method="post">
+						<table border="1">
+						<tr>
+							<th>カテゴリー名</th>
+							<td><input type="text" name="name"></td>
+						</tr>
+					</table>
+					<input type="hidden" name="mode" th:value="${mode}" />
+					<button>確認</button>
+				</form>
+			</th:block>
+		</article>
+	</main>
+	<th:block th:replace="parts/footer"></th:block>
+</body>
+</html>

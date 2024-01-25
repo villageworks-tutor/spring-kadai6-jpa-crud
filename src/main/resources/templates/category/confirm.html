@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリー管理</title>
+</head>
+<body>
+	<th:block th:replace="parts/header"></th:block>
+	<main>
+		<article>
+			<h2>カテゴリー確認</h2>
+			<th:block th:if="${mode eq 'add'}">
+				<table border="1">
+					<tr>
+						<th>カテゴリー名</th>
+						<td th:text="${category.name}"></td>
+					</tr>
+				</table>
+				<form action="/categories/add" method="post">
+					<input type="hidden" name="mode" th:value="${mode}" />
+					<input type="hidden" name="name" th:value="${category.name}" />
+					<button>このカテゴリー名で登録</button>
+				</form>
+			</th:block>
+		</article>
+	</main>
+	<th:block th:replace="parts/footer"></th:block>
+</body>
+</html>
