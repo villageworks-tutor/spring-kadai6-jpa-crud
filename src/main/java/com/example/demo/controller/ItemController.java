@@ -15,6 +15,7 @@ import com.example.demo.repository.ItemRepository;
 
 
 
+
 @Controller
 public class ItemController {
 	
@@ -63,6 +64,25 @@ public class ItemController {
 		model.addAttribute("item", item);
 		// 画面遷移
 		return "editItem";
+	}
+	
+	// 商品更新処理
+	@PostMapping("/items/{id}/edit")
+	public String update(
+			@PathVariable("id") Integer id,
+			@RequestParam(name = "categoryId", defaultValue = "") Integer categoryId,
+			@RequestParam(name = "name", defaultValue = "") String name,
+			@RequestParam(name = "price", defaultValue = "") Integer price) {
+		// リクエストパラメータから更新する商品をインスタンス化
+		Item item = new Item();
+		item.setId(id);
+		item.setCategoryId(categoryId);
+		item.setName(name);
+		item.setPrice(price);
+		// インスタンス化した商品を永続化
+		itemRepository.save(item);
+		// 商品一覧画面表示にリダイレクト
+		return "redirect:/items";
 	}
 	
 	
