@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Category;
 import com.example.demo.repository.CategoryRepository;
+
+
 
 
 
@@ -65,6 +68,50 @@ public class CategoryController {
 		// リクエストパラメータから登録するカテゴリーをインスタンス化
 		Category category = new Category(name);
 		// カテゴリーのインスタンスを永続化
+		categoryRepository.save(category);
+		// カテゴリー一覧画面表示にリダイレクト
+		return "redirect:/categories";
+	}
+	
+	// カテゴリー更新画面表示
+	@GetMapping("/categories/{id}/edit")
+	public String edit(
+			@PathVariable("id") Integer id,
+			@RequestParam(name = "mode", defaultValue = "") String mode,
+			Model model) {
+		// パスパラメータをもとに更新対象のカテゴリーをデータベースから取得
+		Category category = categoryRepository.findById(id).get();
+		// 処理モードをスコープに登録
+		model.addAttribute("category", category);
+		model.addAttribute("mode", mode);
+		// 画面遷移
+		return "category/edit";
+	}
+	
+	// カテゴリー確認画面表示
+	@PostMapping("/categories/{id}/confirm")
+	public String confirm(
+			@PathVariable("id") Integer id,
+			@RequestParam(name = "name", defaultValue = "") String name,
+			@RequestParam(name = "mode", defaultValue = "") String mode,
+			Model model) {
+		// 更新対象カテゴリーのインスタンス化
+		Category category = new Category(id, name);
+		// インスタンス化したカテゴリーをスコープに登録
+		model.addAttribute("category", category);
+		model.addAttribute("mode", mode);
+		// 画面遷移
+		return "category/confirm";
+	}
+	
+	// カテゴリー更新処理
+	@PostMapping("/categories/{id}/edit")
+	public String update(
+			@PathVariable("id") Integer id,
+			@RequestParam(name = "name") String name) {
+		// 更新するカテゴリーをインスタンス化
+		Category category = new Category(id, name);
+		// インスタンス化したカテゴリーを永続化
 		categoryRepository.save(category);
 		// カテゴリー一覧画面表示にリダイレクト
 		return "redirect:/categories";

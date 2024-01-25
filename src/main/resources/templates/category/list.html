@@ -13,10 +13,17 @@
         <tr>
           <th>カテゴリーID</th>
           <th>カテゴリー名</th>
+          <th>更新</th>
         </tr>
         <tr th:each="category:${categoryList}">
           <td th:text="${category.id}"></td>
           <td th:text="${category.name}"></td>
+          <td>
+            <form th:action="'/categories/' + ${category.id} + '/edit'" method="get">
+              <input type="hidden" name="mode" value="edit" />
+              <button>更新</button>
+            </form>
+          </td>
         </tr>
       </table>
       <a href="/categories/add?mode=add">新規登録</a>

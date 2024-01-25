@@ -28,5 +28,15 @@ public class Category {
 	public Category(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * コンストラクタ
+	 * @param id
+	 * @param name
+	 */
+	public Category(Integer id, String name) {
+		this(name);
+		this.id = id;
+	}
 	
 }
