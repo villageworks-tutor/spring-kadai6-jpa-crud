@@ -15,4 +15,18 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	
+	/**
+	 * デフォルトコンストラクタ：引数付きのコンストラクタを定義する場合はデフォルトコンストラクタの定義が必須！
+	 */
+	public Category() {}
+	
+	/**
+	 * コンストラクタ
+	 * @param name
+	 */
+	public Category(String name) {
+		this.name = name;
+	}
+	
 }
