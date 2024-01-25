@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリー管理</title>
+</head>
+<body>
+  <th:block th:replace="parts/header"></th:block>
+  <mian>
+    <article>
+      <h2>カテゴリー一覧</h2>
+      <table border="1">
+        <tr>
+          <th>カテゴリーID</th>
+          <th>カテゴリー名</th>
+        </tr>
+        <tr th:each="category:${categoryList}">
+          <td th:text="${category.id}"></td>
+          <td th:text="${category.name}"></td>
+        </tr>
+      </table>
+    </article>
+  </mian>
+  <th:block th:replace="parts/footer"></th:block>
+</body>
+</html>
