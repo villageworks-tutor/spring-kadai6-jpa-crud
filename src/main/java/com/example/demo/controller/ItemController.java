@@ -86,6 +86,7 @@ public class ItemController {
 		return "redirect:/items";
 	}
 	
+	// 商品削除処理
 	@PostMapping("/items/{id}/delete")
 	public String delete(@PathVariable("id") Integer id) {
 		// パスパラメータをもとに商品を削除
@@ -93,6 +94,5 @@ public class ItemController {
 		// 商品一覧画面表示にリダイレクト
 		return "redirect:/items";
 	}
-	
 	
 }
