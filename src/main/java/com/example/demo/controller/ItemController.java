@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,5 +51,19 @@ public class ItemController {
 		// 商品一覧画面表示にリダイレクト
 		return "redirect:/items";
 	}
+	
+	// 商品更新画面表示
+	@GetMapping("/items/{id}/edit")
+	public String edit(
+			@PathVariable("id") Integer id,
+			Model model) {
+		// パスパラメータをもとに更新対象の商品をデータベースから取得
+		Item item = itemRepository.findById(id).get();
+		// 取得した商品をスコープに登録
+		model.addAttribute("item", item);
+		// 画面遷移
+		return "editItem";
+	}
+	
 	
 }
