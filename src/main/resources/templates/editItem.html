@@ -10,7 +10,7 @@
   </header>
   <main>
     <article>
-      <form action="/items/add" method="post">
+      <form th:action="'/items/' + ${item.id} + '/edit'" method="post">
         <table border="1">
           <tr>
             <th>商品ID</th>
