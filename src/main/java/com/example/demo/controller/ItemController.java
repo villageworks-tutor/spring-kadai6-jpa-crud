@@ -16,6 +16,7 @@ import com.example.demo.repository.ItemRepository;
 
 
 
+
 @Controller
 public class ItemController {
 	
@@ -81,6 +82,14 @@ public class ItemController {
 		item.setPrice(price);
 		// インスタンス化した商品を永続化
 		itemRepository.save(item);
+		// 商品一覧画面表示にリダイレクト
+		return "redirect:/items";
+	}
+	
+	@PostMapping("/items/{id}/delete")
+	public String delete(@PathVariable("id") Integer id) {
+		// パスパラメータをもとに商品を削除
+		itemRepository.deleteById(id);
 		// 商品一覧画面表示にリダイレクト
 		return "redirect:/items";
 	}
