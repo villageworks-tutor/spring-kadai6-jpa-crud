@@ -19,6 +19,7 @@ import com.example.demo.repository.CategoryRepository;
 
 
 
+
 @Controller
 public class CategoryController {
 	
@@ -117,4 +118,27 @@ public class CategoryController {
 		return "redirect:/categories";
 	}
 	
+	// カテゴリー削除確認画面表示
+	@GetMapping("/categories/{id}/delete")
+	public String confirm(
+			@PathVariable("id") Integer id,
+			@RequestParam(name = "mode", defaultValue = "") String mode,
+			Model model) {
+		// パスパラメータをもとに削除対象のカテゴリーを取得
+		Category category = categoryRepository.findById(id).get();
+		// 取得したカテゴリーをスコープに登録
+		model.addAttribute("category", category);
+		model.addAttribute("mode", mode);
+		return "category/confirm";
+	}
+	
+	// カテゴリー削除処理
+	@PostMapping("/categories/{id}/delete")
+	public String delete(@PathVariable("id") Integer id) {
+		// パスパラメータをもとにカテゴリーを削除
+		categoryRepository.deleteById(id);
+		// カテゴリー一覧画面表示にリダイレクト
+		return "redirect:/categories";
+	}
+		
 }

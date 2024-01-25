@@ -22,7 +22,7 @@
 					<button>このカテゴリー名で登録</button>
 				</form>
 			</th:block>
-			<th:block th:if="${mode} eq 'edit'">
+			<th:block th:unless="${mode} eq 'add'">
 				<table border="1">
 					<tr>
 						<th>カテゴリーID</th>
@@ -33,11 +33,20 @@
 						<td th:text="${category.name}"></td>
 					</tr>
 				</table>
-				<form th:action="'/categories/' + ${category.id} + '/edit'" method="post">
-					<input type="hidden" name="mode" th:value="${mode}" />
-					<input type="hidden" name="name" th:value="${category.name}" />
-					<button>このカテゴリー名で更新</button>
-				</form>
+				<th:block th:if="${mode} eq 'edit'">
+					<form th:action="'/categories/' + ${category.id} + '/edit'" method="post">
+						<input type="hidden" name="mode" th:value="${mode}" />
+						<input type="hidden" name="name" th:value="${category.name}" />
+						<button>このカテゴリー名で更新</button>
+					</form>
+				</th:block>
+				<th:block th:if="${mode} eq 'delete'">
+					<form th:action="'/categories/' + ${category.id} + '/delete'" method="post">
+						<input type="hidden" name="mode" th:value="${mode}" />
+						<input type="hidden" name="name" th:value="${category.name}" />
+						<button>このカテゴリーを削除</button>
+					</form>
+				</th:block>
 			</th:block>
 		</article>
 	</main>

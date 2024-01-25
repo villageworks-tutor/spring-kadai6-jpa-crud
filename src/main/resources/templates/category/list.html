@@ -14,6 +14,7 @@
           <th>カテゴリーID</th>
           <th>カテゴリー名</th>
           <th>更新</th>
+          <th>削除</th>
         </tr>
         <tr th:each="category:${categoryList}">
           <td th:text="${category.id}"></td>
@@ -22,6 +23,12 @@
             <form th:action="'/categories/' + ${category.id} + '/edit'" method="get">
               <input type="hidden" name="mode" value="edit" />
               <button>更新</button>
+            </form>
+          </td>
+          <td>
+            <form th:action="'/categories/' + ${category.id} + '/delete'" method="get">
+              <input type="hidden" name="mode" value="delete" />
+              <button>削除</button>
             </form>
           </td>
         </tr>
